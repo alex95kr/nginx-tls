@@ -1,0 +1,9 @@
+---
+- name: Config nginx with TLS
+  hosts: units
+  become: True
+  tasks:
+    - name: Install nginx 
+      apt:
+        name: nginx
+        state: latest
