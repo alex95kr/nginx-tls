@@ -10,25 +10,24 @@
       apt:
         name: nginx
         state: latest
-        notify:
-          - nginx start
+      notify:
+        - nginx start
 
     - name: Copy nginx config file
       ansible.builtin.copy:
         src: files/nginx.conf
         dest: /etc/nginx/sites-available/default
-        state: present
 
     - name: Enable configuration
       ansible.builtin.file:
-        src: /etc/nginx-available/default
-        dest: /etc/sites-enabled/default
+        src: /etc/nginx/sites-available/default
+        dest: /etc/nginx/sites-enabled/default
         state: link
 
     - name: Copy index.html
       ansible.builtin.template:
         src: templates/index.html.j2
-        dest: /url/share/nginx/html/index.html
+        dest: /usr/share/nginx/html/index.html
         mode: 0644
-        notify:
-           - nginx restarted
+      notify:
+        - nginx restart
